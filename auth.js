@@ -6,7 +6,7 @@ export const register = async (req, res) => {
         const {username, password} = req.body
 
         const isUsed = await User.findOne({username})
-        if(isUsed) return res.json({message: 'User already exist.'})
+        if(isUsed) return res.status(400).json({message: 'User already exist.'})
 
         const salt = await bcrypt.genSalt(8)
         const hash = await bcrypt.hash(password, salt)
